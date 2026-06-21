@@ -19,12 +19,12 @@ const blogPostsPlugin = (): Plugin => {
     },
     load(id: string) {
       if (id === resolvedVirtualModuleId) {
-        this.addWatchFile(postsDir)
         const files = fs.readdirSync(postsDir)
         const posts = files
           .filter(file => file.endsWith('.md'))
           .map(file => {
             const filePath = path.join(postsDir, file)
+            this.addWatchFile(filePath)
             const content = fs.readFileSync(filePath, 'utf-8')
             const slug = file.replace(/\.md$/, '')
 
