@@ -1,18 +1,20 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
+import BlogList from '@/views/BlogList.vue'
 
 // 1. Fetch all markdown files lazily
 const markdownPosts = import.meta.glob('../posts/*.md')
 
 // 2. Map them into Vue Router route objects
-const blogRoutes = Object.keys(markdownPosts).map((filePath) => {
+const blogRoutes: RouteRecordRaw[] = Object.keys(markdownPosts).map((filePath) => {
   // Extract filename without extension (e.g., '../posts/my-post.md' -> 'my-post')
-  const slug = filePath.match(/\/([^/]+)\.md$/)[1] 
+  const match = filePath.match(/\/([^/]+)\.md$/)
+  const slug = match ? match[1] : filePath
   
   return {
     path: `/blog/${slug}`,
-    name: slug,
-    component: markdownPosts[filePath]
+    name: slug as string,
+    component: markdownPosts[filePath] as () => Promise<any>
   }
 })
 
@@ -23,6 +25,11 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView
+    },
+    {
+      path: '/blog',
+      name: 'blog-list',
+      component: BlogList
     },
     // 3. Inject the automated routes
     ...blogRoutes 
