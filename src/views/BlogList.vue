@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { posts } from 'virtual:blog-posts'
+import { formatDate } from "@/utils/time.ts"
 
 // Sort posts by date descending
 const sortedPosts = [...posts].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
@@ -16,9 +17,10 @@ const sortedPosts = [...posts].sort((a, b) => new Date(b.date).getTime() - new D
       <div v-if="sortedPosts.length === 0" class="empty">
         No posts yet.
       </div>
+      <small>{{ posts }}</small>
       <article v-for="post in sortedPosts" :key="post.slug" class="post-item">
         <router-link :to="`/blog/${post.slug}`">
-          <div class="post-meta">{{ post.date }}</div>
+          <div class="post-meta">{{ formatDate(post.date) }}</div>
           <h2 class="post-title">{{ post.title }}</h2>
         </router-link>
       </article>

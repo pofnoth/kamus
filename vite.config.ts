@@ -4,6 +4,7 @@ import vue from '@vitejs/plugin-vue'
 import Markdown from 'unplugin-vue-markdown/vite'
 import fs from 'node:fs'
 import path from 'node:path'
+import matter from 'gray-matter'
 
 const blogPostsPlugin = (): Plugin => {
   const virtualModuleId = 'virtual:blog-posts'
@@ -19,36 +20,47 @@ const blogPostsPlugin = (): Plugin => {
     },
     load(id: string) {
       if (id === resolvedVirtualModuleId) {
+        // Fallback jika folder posts tidak ditemukan
+        if (!fs.existsSync(postsDir)) {
+          return `export const posts = []`
+        }
+
         const files = fs.readdirSync(postsDir)
         const posts = files
           .filter(file => file.endsWith('.md'))
           .map(file => {
             const filePath = path.join(postsDir, file)
             this.addWatchFile(filePath)
+            
             const content = fs.readFileSync(filePath, 'utf-8')
             const slug = file.replace(/\.md$/, '')
+            
+            // Ekstraksi YAML frontmatter menggunakan gray-matter
+            const { data } = matter(content)
 
-            // Simple frontmatter parser
-            const frontmatterMatch = content.match(/^---([\s\S]*?)---/)
-            const metadata = { slug, title: slug, date: 'No Date' }
-
-            if (frontmatterMatch) {
-              const lines = frontmatterMatch[1].split('\n')
-              lines.forEach(line => {
-                const [key, ...valueParts] = line.split(':')
-                if (key && valueParts.length > 0) {
-                  const value = valueParts.join(':').trim().replace(/^["']|["']$/g, '')
-                  const cleanKey = key.trim()
-                  if (cleanKey === 'title') metadata.title = value
-                  if (cleanKey === 'date') metadata.date = value
-                }
-              })
+            return {
+              slug,
+              title: data.title || slug,
+              date: data.date || 'No Date',
+              ...data 
             }
-
-            return metadata
           })
 
         return `export const posts = ${JSON.stringify(posts)}`
+      }
+    },
+    // Menangani Auto-Reload saat tahap development
+    handleHotUpdate({ file, server }) {
+      if (file.startsWith(postsDir) && file.endsWith('.md')) {
+        const virtualModule = server.moduleGraph.getModuleById(resolvedVirtualModuleId)
+        
+        if (virtualModule) {
+          server.moduleGraph.invalidateModule(virtualModule)
+          server.ws.send({
+            type: 'full-reload',
+            path: '*'
+          })
+        }
       }
     }
   }
@@ -58,10 +70,10 @@ export default defineConfig({
   base: '/kamus/',
   plugins: [
     Markdown({
-      headEnabled: true // Enables parsing YAML frontmatter
+      headEnabled: true
     }),
     vue({
-      include: [/\.vue$/, /\.md$/], // Tell Vue to process markdown
+      include: [/\.vue$/, /\.md$/],
     }),
     blogPostsPlugin()
   ],
