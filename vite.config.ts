@@ -32,16 +32,38 @@ const blogPostsPlugin = (): Plugin => {
             const filePath = path.join(postsDir, file)
             this.addWatchFile(filePath)
             
-            const content = fs.readFileSync(filePath, 'utf-8')
+            const raw_md = fs.readFileSync(filePath, 'utf-8')
             const slug = file.replace(/\.md$/, '')
             
             // Ekstraksi YAML frontmatter menggunakan gray-matter
-            const { data } = matter(content)
-
+            const { data, content } = matter(raw_md)
+            
+            let autoExcerpt = undefined;
+            
+            if (data.tags && data.tags.includes('headline')) {
+              // Mesin hanya akan melakukan komputasi string berat ini jika syarat di atas terpenuhi
+              autoExcerpt = content
+                // Membunuh SELURUH BARIS yang diawali dengan '#' (membuang judul beserta teksnya)
+                .replace(/^#+.*$/gm, '') 
+                // Hapus sintaks link Markdown [teks](url)
+                .replace(/\[.*?\]\(.*?\)/g, '') 
+                // Hapus tag HTML mentah
+                .replace(/<[^>]*>?/gm, '') 
+                // Hapus sisa simbol Markdown (bold, italic, strikethrough, inline code)
+                .replace(/[*_~`]/g, '') 
+                // Ratakan semua baris baru (enter) menjadi satu spasi
+                .replace(/\n+/g, ' ') 
+                // Bersihkan spasi kosong di awal/akhir
+                .trim()
+                // Potong 150 karakter
+                .substring(0, 150) + '...';
+            }
+            
             return {
               slug,
               title: data.title || slug,
               date: data.date || 'No Date',
+              excerpt: data.desc || autoExcerpt,
               ...data 
             }
           })

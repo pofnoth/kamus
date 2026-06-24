@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retrofuturistic Blueprint Landing</title>
+    
+    <!-- Mengambil font tulisan tangan dengan tingkat keterbacaan tinggi dan nuansa 'sketch' -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Patrick+Hand&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 1. Design System (Blueprint Retrofuturistic) */
+        :root {
+            /* Tema Terang: Kertas Sketsa/Blueprint Kuno */
+            --bg-color: #f4f1ea; 
+            --text-main: #1a1a1a;
+            --text-muted: #595959;
+            --accent: #ff3366; /* Retro Neon Pink/Red */
+            --border-color: #1a1a1a;
+            --surface: #ffffff;
+            --grid-color: rgba(26, 26, 26, 0.08);
+            --shadow-solid: 4px 4px 0px var(--border-color);
+            --radius: 0px; /* Retrofuturism menolak sudut melengkung yang lembut */
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            /* Tema Gelap: Layar Terminal CRT / Cyberpunk Schematic */
+            --bg-color: #0d1117;
+            --text-main: #e6edf3;
+            --text-muted: #8b949e;
+            --accent: #00ffcc; /* Cyberpunk Cyan */
+            --border-color: #30363d;
+            --surface: #161b22;
+            --grid-color: rgba(230, 237, 243, 0.05);
+            --shadow-solid: 4px 4px 0px var(--accent); /* Bayangan menyala di mode gelap */
+        }
+
+        /* 2. Reset & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* Patrick Hand untuk paragraf: organik tapi sangat terbaca */
+            font-family: 'Patrick Hand', cursive, sans-serif;
+            font-size: 1.125rem;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            
+            /* Latar Belakang Grid Khas Retrofuturistik */
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 24px 24px;
+            background-position: center center;
+            
+            transition: background-color var(--transition), color var(--transition);
+        }
+
+        /* Architects Daughter untuk Heading: Kesan catatan arsitek/insinyur */
+        h1, h2, h3, .logo, .card-tag {
+            font-family: 'Architects Daughter', cursive, sans-serif;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        
+        /* 3. Layout Utilities */
+        .container {
+            max-width: 64rem;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* 4. Navbar & Adaptive Icon */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 0;
+            border-bottom: 2px solid var(--border-color);
+            margin-bottom: 3rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .theme-toggle {
+            background: var(--surface);
+            color: var(--text-main);
+            border: 2px solid var(--border-color);
+            padding: 0.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 2px 2px 0px var(--border-color);
+            transition: all 0.1s ease;
+        }
+
+        .theme-toggle:active {
+            transform: translate(2px, 2px);
+            box-shadow: 0px 0px 0px var(--border-color);
+        }
+
+        .theme-toggle svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Logika Adaptive Icon: Menyembunyikan icon yang tidak relevan dengan CSS */
+        [data-theme="light"] .icon-moon { display: none; }
+        [data-theme="light"] .icon-sun { display: block; }
+        [data-theme="dark"] .icon-sun { display: none; }
+        [data-theme="dark"] .icon-moon { display: block; }
+
+        /* 5. Hero Section */
+        .hero {
+            padding: 3rem 0;
+            margin-bottom: 3rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 6vw + 1rem, 5rem); 
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+            /* Efek coretan stabilo retro */
+            background-image: linear-gradient(transparent 60%, rgba(255, 51, 102, 0.2) 60%);
+        }
+
+        [data-theme="dark"] .hero h1 span {
+            background-image: linear-gradient(transparent 60%, rgba(0, 255, 204, 0.2) 60%);
+        }
+
+        .hero p {
+            font-size: clamp(1.25rem, 2vw, 1.5rem);
+            color: var(--text-muted);
+            max-width: 42rem;
+        }
+
+        /* 6. Grid Layout (Headlines) */
+        .grid-posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .card {
+            background-color: var(--surface);
+            border: 2px solid var(--border-color);
+            padding: 2rem;
+            box-shadow: var(--shadow-solid);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            position: relative;
+        }
+
+        /* Efek Isolasi Terminal/Blueprint saat di-hover */
+        .card:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 8px 8px 0px var(--accent);
+            border-color: var(--accent);
+        }
+
+        .card-tag {
+            font-size: 0.875rem;
+            color: var(--bg-color);
+            background-color: var(--text-main);
+            padding: 0.2rem 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .card p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .card-link {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--text-main);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-link:hover {
+            color: var(--accent);
+        }
+
+        /* 7. Footer */
+        .footer {
+            text-align: center;
+            padding: 3rem 0;
+            color: var(--text-muted);
+            font-size: 1rem;
+            border-top: 2px dashed var(--border-color);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Navbar -->
+        <nav class="navbar">
+            <span class="logo">Kamus.dev_</span>
+            
+            <!-- Tombol Toggle Tema dengan Adaptive SVG Icons -->
+            <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Theme">
+                <!-- Icon Sun (Muncul di Light Mode) -->
+                <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="5"></circle>
+                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                </svg>
+                <!-- Icon Moon (Muncul di Dark Mode) -->
+                <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
+            </button>
+        </nav>
+
+        <!-- Hero Section -->
+        <main>
+            <header class="hero">
+                <h1>Refleksi Skematik untuk <br><span>Digital Pioneer</span></h1>
+                <p>Tempat mendokumentasikan pemikiran, eksperimen, dan langkah-langkah dalam membangun ekosistem web yang bersih dan efisien.</p>
+            </header>
+
+            <!-- Headlines / Content -->
+            <section class="grid-posts">
+                <article class="card">
+                    <span class="card-tag">Headline</span>
+                    <h2>Digital Nomadism in 2026</h2>
+                    <p>Membahas pergeseran pola kerja di era pasca-pandemi dengan infrastruktur web yang semakin terdesentralisasi.</p>
+                    <a href="#" class="card-link">Baca selengkapnya &rarr;</a>
+                </article>
+
+                <article class="card">
+                    <span class="card-tag">Headline</span>
+                    <h2>The Silent Echo</h2>
+                    <p>Keheningan adalah senjata. Analisis tentang esensi komunikasi yang efisien dalam dunia yang terlalu berisik.</p>
+                    <a href="#" class="card-link">Baca selengkapnya &rarr;</a>
+                </article>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            &copy; 2026 Kamus Dev. Dirancang dengan presisi, dieksekusi tanpa kompromi.
+        </footer>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            html.setAttribute('data-theme', newTheme);
+        }
+    </script>
+</body>
+</html>
