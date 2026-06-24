@@ -1,62 +1,45 @@
+<script setup>
+import { computed } from 'vue'
+import { posts } from 'virtual:blog-posts'
+import Navbar from '@/components/Navbar.vue'
+import Hero from '@/components/Hero.vue'
+import PostCard from '@/components/PostCard.vue'
+import Footer from '@/components/Footer.vue'
+
+// Logika Data
+const headlinePosts = computed(() => {
+  return posts
+    .filter(post => post.tags?.includes('headline'))
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .slice(0, 4)
+})
+</script>
+
 <template>
-  <main class="home-container">
-    <div class="content">
-      <h1>Kamus</h1>
-      <p class="tagline">Pioneer Of Nothing</p>
-      <nav>
-        <router-link to="/blog" class="nav-link">Read Blog</router-link>
-      </nav>
-    </div>
-  </main>
+  <div class="container">
+    <Navbar />
+
+    <main>
+      <Hero />
+
+      <section class="grid-posts">
+        <PostCard 
+          v-for="post in headlinePosts" 
+          :key="post.slug" 
+          :post="post" 
+        />
+      </section>
+    </main>
+
+    <Footer />
+  </div>
 </template>
 
 <style scoped>
-.home-container {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background-color: #fff;
-  color: #000;
-}
-
-.content {
-  text-align: center;
-}
-
-h1 {
-  font-size: 3rem;
-  font-weight: 800;
-  margin: 0;
-  letter-spacing: -1px;
-}
-
-.tagline {
-  font-size: 1.2rem;
-  color: #666;
-  margin-top: 8px;
-  margin-bottom: 32px;
-}
-
-.nav-link {
-  display: inline-block;
-  padding: 10px 24px;
-  background-color: #000;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 6px;
-  font-weight: 500;
-  transition: opacity 0.2s ease;
-}
-
-.nav-link:hover {
-  opacity: 0.8;
-}
-
-@media (max-width: 600px) {
-  h1 {
-    font-size: 2rem;
-  }
+.grid-posts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: clamp(1.25rem, 4vw, 2.5rem); 
+  margin-bottom: 4rem;
 }
 </style>

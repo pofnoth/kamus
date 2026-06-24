@@ -1,7 +1,7 @@
 ---
 title: Kamus Pioneer Of Nothing
 date: 2026-06-20
-tags: [important, kamus, n9ne]
+tags: [headline, kamus]
 author: kamus
 ---
 
