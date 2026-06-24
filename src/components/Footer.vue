@@ -1,6 +1,6 @@
 <template>
   <footer class="footer">
-    &copy; 2026 Kamus Dev. Dirancang dengan presisi, dieksekusi tanpa kompromi.
+    &copy; 2026 kamus, tidak selalu menulis yang penting itu penting, yang paling penting adalah yang penting nulis.
   </footer>
 </template>
 
