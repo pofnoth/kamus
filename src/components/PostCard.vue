@@ -1,15 +1,17 @@
 <script setup>
-defineProps({
-  post: {
-    type: Object,
-    required: true
-  }
-})
+   import { formatDate } from "@/utils/time.ts"
+   
+   defineProps({
+     post: {
+       type: Object,
+       required: true
+     }
+   })
 </script>
 
 <template>
   <article class="card">
-    <span class="card-tag">Headline</span>
+    <span class="card-tag">{{ formatDate(post.date) }}</span>
     <h2>{{ post.title }}</h2>
     <p v-if="post.excerpt">{{ post.excerpt }}</p>
     <p v-else>Sebuah catatan arsitektur dari Kamus.dev...</p>

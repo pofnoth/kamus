@@ -1,7 +1,14 @@
 <template>
   <header class="hero">
-    <h1>Refleksi Skematik untuk <br><span>Digital Pioneer</span></h1>
-    <p>Tempat mendokumentasikan pemikiran, eksperimen, dan langkah-langkah dalam membangun ekosistem web yang bersih dan efisien.</p>
+    <h1>Halo👋, Namaku kamus<br><span>The Pioneer Of Nothing</span></h1>
+    <p>
+       Aku menuangkan tulisanku kedalam 3 kategori:
+       <ul>
+          <li>ibarat: Sebagai wadah mengolah fantasi, rima, dan hal-hal abstrak nan puitis.</li>
+          <li>sudut bias: Menyentuh topik serius terkait cara pandang dunia, moralitas, serta kesimpulan buah pikirku.</li>
+          <li>manusiawi: Menampung segala hal yang hingga kini belum aku temukan jawaban akhirnya.</li>
+       </ul>
+    </p>
   </header>
 </template>
 
