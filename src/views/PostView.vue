@@ -18,8 +18,8 @@ const postData = computed(() => {
 </script>
 
 <template>
+  <Navbar/>
   <div class="container">
-    <Navbar />
 
     <main class="post-wrapper">
 
