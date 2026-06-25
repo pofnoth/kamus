@@ -5,6 +5,7 @@ import Markdown from 'unplugin-vue-markdown/vite'
 import fs from 'node:fs'
 import path from 'node:path'
 import matter from 'gray-matter'
+import * as yaml from 'js-yaml'
 
 const blogPostsPlugin = (): Plugin => {
   const virtualModuleId = 'virtual:blog-posts'
@@ -36,7 +37,14 @@ const blogPostsPlugin = (): Plugin => {
             const slug = file.replace(/\.md$/, '')
             
             // Ekstraksi YAML frontmatter menggunakan gray-matter
-            const { data, content } = matter(raw_md)
+            const { data, content } = matter(raw_md, {
+              engines: {
+                yaml: {
+                  parse: (str: string) => yaml.load(str),
+                  stringify: (obj: any) => yaml.dump(obj)
+                }
+              }
+            })
             
             let autoExcerpt = undefined;
             
@@ -92,7 +100,17 @@ export default defineConfig({
   base: '/',
   plugins: [
     Markdown({
-      headEnabled: true
+      headEnabled: true,
+      frontmatterOptions: {
+        grayMatterOptions: {
+          engines: {
+            yaml: {
+              parse: (str: string) => yaml.load(str),
+              stringify: (obj: any) => yaml.dump(obj)
+            }
+          }
+        }
+      }
     }),
     vue({
       include: [/\.vue$/, /\.md$/],
