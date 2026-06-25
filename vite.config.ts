@@ -89,7 +89,7 @@ const blogPostsPlugin = (): Plugin => {
 }
 
 export default defineConfig({
-  base: '/kamus/',
+  base: '/',
   plugins: [
     Markdown({
       headEnabled: true
