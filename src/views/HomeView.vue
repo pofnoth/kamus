@@ -16,9 +16,8 @@ const headlinePosts = computed(() => {
 </script>
 
 <template>
+  <Navbar />
   <div class="container">
-    <Navbar />
-
     <main>
       <Hero />
 
