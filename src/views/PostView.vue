@@ -22,14 +22,8 @@ const postData = computed(() => {
     <Navbar />
 
     <main class="post-wrapper">
-      <router-link to="/" class="back-btn">
-        &larr; Kembali ke Sistem Utama
-      </router-link>
 
       <article class="card blueprint-prose">
-        <div class="post-meta" v-if="postData">
-          Post: {{ postData.title }}.md_
-        </div>
         
         <header class="post-header" v-if="postData">
           <h1 class="post-title">{{ postData.title }}</h1>
@@ -64,32 +58,6 @@ const postData = computed(() => {
   /* Kita perlebar sedikit wadah utamanya agar teks tidak tercekik */
   max-width: 54rem; 
   margin: 0 auto;
-}
-
-.back-btn {
-  display: inline-block;
-  font-family: 'Architects Daughter', cursive;
-  font-weight: bold;
-  margin-bottom: 1.5rem;
-  padding: 0.5rem 1rem;
-  border: 2px solid var(--border-color);
-  background-color: var(--surface);
-  box-shadow: 2px 2px 0px var(--border-color);
-  transition: all 0.1s ease;
-}
-
-.back-btn:active {
-  transform: translate(2px, 2px);
-  box-shadow: 0px 0px 0px var(--border-color);
-}
-
-.post-meta {
-  font-family: 'Architects Daughter', cursive;
-  color: var(--text-muted);
-  border-bottom: 2px dashed var(--border-color);
-  padding-bottom: 1rem;
-  margin-bottom: 2rem;
-  font-size: 1.1rem;
 }
 
 .blueprint-prose {
