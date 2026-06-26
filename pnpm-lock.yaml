@@ -2185,6 +2185,11 @@ snapshots:
       no-case: 3.0.4
       tslib: 2.8.1
 
+  dot-case@3.0.4:
+    dependencies:
+      no-case: 3.0.4
+      tslib: 2.8.1
+
   entities@4.5.0: {}
 
   entities@7.0.1: {}
@@ -2543,6 +2548,20 @@ snapshots:
       - unloader
       - vite
       - webpack
+
+  param-case@3.0.4:
+    dependencies:
+      dot-case: 3.0.4
+      tslib: 2.8.1
+
+  parse5@8.0.1:
+    dependencies:
+      entities: 8.0.0
+
+  pascal-case@3.1.2:
+    dependencies:
+      no-case: 3.0.4
+      tslib: 2.8.1
 
   param-case@3.0.4:
     dependencies:
