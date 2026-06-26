@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory, createMemoryHistory, type RouteRecordRaw } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import BlogList from '@/views/BlogList.vue'
 import PostView from '@/views/PostView.vue' // Import baju layout kita
@@ -27,25 +27,32 @@ const blogRoutes: RouteRecordRaw[] = Object.keys(markdownPosts).map((filePath) =
   }
 })
 
-const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: HomeView
-    },
-    {
-      path: '/blog',
-      name: 'blog-list',
-      component: BlogList
-    },
-    // 3. Inject the automated routes
-    ...blogRoutes 
-  ],
-  scrollBehavior(to, from, savedPosition) {
-    return savedPosition || { top: 0 } // Otomatis scroll ke atas saat pindah artikel
-  }
-})
+export function createRouterInstance() {
+  const routerHistory = typeof window !== 'undefined'
+    ? createWebHistory(import.meta.env.BASE_URL)
+    : createMemoryHistory(import.meta.env.BASE_URL)
 
+  return createRouter({
+    history: routerHistory,
+    routes: [
+      {
+        path: '/',
+        name: 'home',
+        component: HomeView
+      },
+      {
+        path: '/blog',
+        name: 'blog-list',
+        component: BlogList
+      },
+      // 3. Inject the automated routes
+      ...blogRoutes 
+    ],
+    scrollBehavior(to, from, savedPosition) {
+      return savedPosition || { top: 0 } // Otomatis scroll ke atas saat pindah artikel
+    }
+  })
+}
+
+const router = createRouterInstance()
 export default router
