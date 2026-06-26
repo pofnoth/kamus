@@ -34,7 +34,7 @@ const filteredPosts = computed(() => {
   <div class="blog-container container">
 
     <div class="tag-filter-wrapper">
-      <select v-model="activeTag" class="tag-select">
+      <select v-model="activeTag" class="tag-select" aria-label="Filter tulisan berdasarkan topik">
         <option :value="null">All Posts</option>
         <option v-for="tag in allTags" :key="tag" :value="tag">
           {{ tag }}

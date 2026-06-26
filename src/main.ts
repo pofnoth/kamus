@@ -1,7 +1,6 @@
-import { createApp } from 'vue'
-import { createHead } from '@unhead/vue/client'
+import { createSSRApp } from 'vue'
 import App from './App.vue'
-import router from './router'
+import { createRouterInstance } from './router'
 import "@/assets/main.css"
 
 if (import.meta.env.DEV) {
@@ -10,9 +9,27 @@ if (import.meta.env.DEV) {
   });
 }
 
-const app = createApp(App)
-const head = createHead()
+export async function createApp() {
+  const app = createSSRApp(App)
+  const router = createRouterInstance()
 
-app.use(router)
-app.use(head)
-app.mount('#app')
+  // Dynamically import client/server head creator based on environment
+  const createHead = typeof window !== 'undefined'
+    ? (await import('@unhead/vue/client')).createHead
+    : (await import('@unhead/vue/server')).createHead
+
+  const head = createHead()
+
+  app.use(router)
+  app.use(head)
+
+  return { app, router, head }
+}
+
+if (typeof window !== 'undefined') {
+  createApp().then(({ app, router }) => {
+    router.isReady().then(() => {
+      app.mount('#app')
+    })
+  })
+}
