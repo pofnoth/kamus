@@ -15,6 +15,12 @@ const postData = computed(() => {
   return posts.find(post => post.slug === currentSlug.value)
 })
 
+const visibleTags = computed(() => {
+  if (!postData.value || !postData.value.tags) return []
+  // Filter akan membuang tag 'headline' (tidak peduli huruf besar/kecil)
+  return postData.value.tags.filter(tag => tag.toLowerCase() !== 'headline')
+})
+
 </script>
 
 <template>
@@ -27,12 +33,15 @@ const postData = computed(() => {
         
         <header class="post-header" v-if="postData">
           <h1 class="post-title">{{ postData.title }}</h1>
-          
-          <div class="post-tags" v-if="postData.tags && postData.tags.length > 0">
-            <span v-for="tag in postData.tags" :key="tag" class="tag-badge">
-              #{{ tag }}
-            </span>
-          </div>
+            <div class="post-tags" v-if="visibleTags.length > 0">
+              <span 
+                v-for="tag in visibleTags" 
+                :key="tag" 
+                class="tag-badge"
+              >
+                #{{ tag }}
+              </span>
+            </div>
         </header>
 
         <div class="markdown-content">
@@ -102,7 +111,6 @@ const postData = computed(() => {
 
 /* Styling Khusus Judul dari Frontmatter */
 .post-header {
-  margin-bottom: 2.5rem;
   padding-bottom: 1.5rem;
   border-bottom: 2px dashed var(--grid-color);
 }
@@ -155,6 +163,11 @@ const postData = computed(() => {
   /* Membuat background gradient agar tidak menutupi seluruh blok */
   display: inline;
   background-image: linear-gradient(transparent 60%, rgba(255, 51, 102, 0.2) 60%);
+}
+
+.post-title, .markdown-content :deep(h1) {
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone; 
 }
 
 :global([data-theme="dark"]) .markdown-content :deep(h1) {
