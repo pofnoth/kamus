@@ -2,6 +2,7 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig, type Plugin } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import Markdown from 'unplugin-vue-markdown/vite'
+import { viteSingleFile } from 'vite-plugin-singlefile'
 import fs from 'node:fs'
 import path from 'node:path'
 import matter from 'gray-matter'
@@ -97,7 +98,8 @@ export default defineConfig({
     vue({
       include: [/\.vue$/, /\.md$/],
     }),
-    blogPostsPlugin()
+    blogPostsPlugin(),
+    viteSingleFile()
   ],
   resolve: {
     alias: {
