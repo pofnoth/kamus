@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, type RouteRecordRaw } from 'vue-router'
+import { createRouter, createWebHistory, createMemoryHistory, type RouteRecordRaw } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import BlogList from '@/views/BlogList.vue'
 import PostView from '@/views/PostView.vue' // Import baju layout kita
@@ -27,22 +27,26 @@ const blogRoutes: RouteRecordRaw[] = Object.keys(markdownPosts).map((filePath) =
   }
 })
 
+export const routes: RouteRecordRaw[] = [
+  {
+    path: '/',
+    name: 'home',
+    component: HomeView
+  },
+  {
+    path: '/blog',
+    name: 'blog-list',
+    component: BlogList
+  },
+  // 3. Inject the automated routes
+  ...blogRoutes
+]
+
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: HomeView
-    },
-    {
-      path: '/blog',
-      name: 'blog-list',
-      component: BlogList
-    },
-    // 3. Inject the automated routes
-    ...blogRoutes 
-  ],
+  history: import.meta.env.SSR
+    ? createMemoryHistory(import.meta.env.BASE_URL)
+    : createWebHistory(import.meta.env.BASE_URL),
+  routes,
   scrollBehavior(to, from, savedPosition) {
     return savedPosition || { top: 0 } // Otomatis scroll ke atas saat pindah artikel
   }
