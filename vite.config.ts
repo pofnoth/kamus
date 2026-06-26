@@ -103,5 +103,9 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
-  }
+  },
+  ssgOptions: {
+    script: 'async',
+    formatting: 'minify',
+  },
 })
