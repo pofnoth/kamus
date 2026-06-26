@@ -5,6 +5,7 @@ import Markdown from 'unplugin-vue-markdown/vite'
 import fs from 'node:fs'
 import path from 'node:path'
 import matter from 'gray-matter'
+import { ViteImageOptimizer } from 'vite-plugin-image-optimizer'
 
 const blogPostsPlugin = (): Plugin => {
   const virtualModuleId = 'virtual:blog-posts'
@@ -96,6 +97,16 @@ export default defineConfig({
     }),
     vue({
       include: [/\.vue$/, /\.md$/],
+    }),
+    ViteImageOptimizer({
+      jpeg: {
+        quality: 80, // Kompresi kualitas ke 80% (optimal untuk web)
+        progressive: true, // Mengaktifkan format Progressive JPEG
+      },
+      jpg: {
+        quality: 80, // Kompresi kualitas ke 80% (optimal untuk web)
+        progressive: true, // Mengaktifkan format Progressive JPEG
+      },
     }),
     blogPostsPlugin()
   ],
