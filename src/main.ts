@@ -13,7 +13,12 @@ export const createApp = ViteSSG(
   App,
   {
     routes,
-    base: import.meta.env.BASE_URL
+    base: import.meta.env.BASE_URL,
+    routerOptions: {
+      scrollBehavior(to, from, savedPosition) {
+        return savedPosition || { top: 0 }
+      }
+    }
   },
   ({ app, router, head, isClient }) => {
     // app.use(router) // vite-ssg handles router
