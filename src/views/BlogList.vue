@@ -22,10 +22,11 @@ const allTags = computed(() => {
 
 const activeTag = ref<string | null>(null)
 
+const sortedPosts = [...posts].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+
 const filteredPosts = computed(() => {
-  const sorted = [...posts].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-  if (!activeTag.value) return sorted
-  return sorted.filter(post => post.tags && post.tags.includes(activeTag.value!))
+  if (!activeTag.value) return sortedPosts
+  return sortedPosts.filter(post => post.tags && post.tags.includes(activeTag.value!))
 })
 </script>
 
@@ -52,13 +53,10 @@ const filteredPosts = computed(() => {
           <h2>{{ post.title }}</h2>
           <div v-if="post.tags && post.tags.length > 0" class="card-tag">
              <span v-for="tag in post.tags" :key="tag">
-                #{{ tag }}
+                {{ tag != 'headline' ? '#'+tag : '' }}
              </span>
           </div>
           <div v-else class="card-tag">
-             <span>
-                #null
-             </span>
           </div>
         </router-link>
       </article>
