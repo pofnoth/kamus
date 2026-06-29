@@ -1,42 +1,11 @@
-# kamus
+# KAMUS BLOG
 
-This template should help get you started developing with Vue 3 in Vite.
+Website statis untuk blog pribadi gwa, tidak ada api dan database.
 
-## Recommended IDE Setup
+Semua data posts kusimpan dalam bentuk markdown yang kemudian diolah menjadi html statis dengan gabungan vite-ssg dan vue serta beberapa tools/teknik lainnya.
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+Hasilnya, website yang ngebut, instan, dan robust.
 
-## Recommended Browser Setup
-
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
-
-## Type Support for `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-pnpm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-pnpm dev
-```
-
-### Compile and Minify for Production
-
-```sh
-pnpm build
-```
+#### Semua tools/tek bisa kamu lihat di package.json
+#### Masih dalam tahap pengembangan aktif, projek ini belum ada di tahap final.
+#### Ya, aku pakai beberapa AI untuk bantu insight dan pecahin beberapa masalah.
