@@ -7,15 +7,6 @@ tags:
   - manusiawi
 ---
 
-***
-
-title: Maling Kotak Amal
-tags: [headline, manusiawi]
-date: 2026-06-27
-author: kamus
-
-***
-
 Yap, banyak kasus tentang pencurian kotak amal. Yg ingin kukritisi sebenarnya tidak terpaku pada kasus malingnya tetapi tentang bagaimana sebuah siklus kecil yang menggambarkan kemunduran dalam perekonomian serta keagamaan.
 
 Masjid harusnya tempat terbuka untuk umum, bukan hanya tempat solat, tetapi juga tempat yg mengandung nilai2 positif lainnya selain dari hal2 terkait iman.
