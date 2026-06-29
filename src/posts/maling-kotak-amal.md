@@ -1,9 +1,20 @@
---- 
+---
+title: Maling Kotak Amal
+author: kamus
+date: 2026-06-27T10:00
+tags:
+  - headline
+  - manusiawi
+---
+
+***
+
 title: Maling Kotak Amal
 tags: [headline, manusiawi]
 date: 2026-06-27
 author: kamus
---- 
+
+***
 
 Yap, banyak kasus tentang pencurian kotak amal. Yg ingin kukritisi sebenarnya tidak terpaku pada kasus malingnya tetapi tentang bagaimana sebuah siklus kecil yang menggambarkan kemunduran dalam perekonomian serta keagamaan.
 
