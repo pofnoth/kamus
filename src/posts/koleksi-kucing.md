@@ -6,6 +6,6 @@ date: 2026-06-20
 
 ## Kucing misterius!!!
 
-<img src="/images/kamus_face.jpeg" alt="Kucing misterius kamus" /><br/>
+![kucing Persia sumatra](/images/kamus_face.jpeg)
 
-- kucing nonchalant asli bekasi.![walid](/images/1000906415.jpg "Sejenis kucing juga")
+![walid](/images/1000906415.jpg "Sejenis kucing juga")
