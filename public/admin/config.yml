@@ -1,0 +1,26 @@
+backend:
+  name: github # Ganti dengan gitlab jika kamu menggunakan GitLab
+  repo: pofnoth/kamus # WAJIB DIGANTI
+  branch: main
+
+# Mengizinkan akses admin di localhost tanpa harus commit ke Git
+#local_backend: true
+
+# Pemetaan media agar sinkron dengan struktur Vite-mu
+media_folder: "public/images"
+public_folder: "/images"
+
+collections:
+  - name: "posts"
+    label: "Artikel Blog"
+    folder: "src/posts" # Menunjuk langsung ke tempat .md milikmu berada
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    fields:
+      - {label: "Judul", name: "title", widget: "string"}
+      - {label: "Penulis", name: "author", widget: "string", default: "kamus"}
+      - {label: "Tanggal", name: "date", widget: "datetime"}
+      - {label: "Tags", name: "tags", widget: "list", hint: "Tekan enter untuk menambah tag baru"}
+      - {label: "Konten", name: "body", widget: "markdown"}
