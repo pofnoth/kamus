@@ -1,4 +1,4 @@
-/* /assets/main.css */
+/* /src/themes/paper.css */
 @font-face {
   font-family: 'Architects Daughter';
   src: url('/fonts/ArchitectsDaughter-Regular.woff2') format('truetype');
@@ -26,6 +26,7 @@
   --shadow-solid: 4px 4px 0px var(--border-color);
   --radius: 0px; 
   --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --hero-gradient-color: rgba(255, 51, 102, 0.2);
 }
 
 [data-theme="dark"] {
@@ -37,6 +38,7 @@
   --surface: #161b22;
   --grid-color: rgba(230, 237, 243, 0.05);
   --shadow-solid: 4px 4px 0px var(--accent); 
+  --hero-gradient-color: rgba(0, 255, 204, 0.2);
 }
 
 body {
@@ -44,21 +46,12 @@ body {
   font-size: 1.125rem;
   background-color: var(--bg-color);
   color: var(--text-main);
-  line-height: 1.6;
-  -webkit-font-smoothing: antialiased;
   background-image: 
     linear-gradient(var(--grid-color) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
   background-size: 24px 24px;
   background-position: center center;
-  transition: background-color var(--transition), color var(--transition);
 }
 
 h1, h2, h3, .logo, .card-tag { font-family: 'Architects Daughter', cursive, sans-serif; }
-a { text-decoration: none; color: inherit; }
 
-.container {
-  max-width: 64rem;
-  margin: 0 auto;
-  padding: 0 2rem;
-}

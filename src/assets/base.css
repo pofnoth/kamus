@@ -1,0 +1,14 @@
+/* /src/assets/base.css */
+body {
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color var(--transition), color var(--transition);
+}
+
+a { text-decoration: none; color: inherit; }
+
+.container {
+  max-width: 64rem;
+  margin: 0 auto;
+  padding: 0 2rem;
+}

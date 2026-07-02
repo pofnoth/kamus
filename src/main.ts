@@ -1,7 +1,8 @@
 import { ViteSSG } from 'vite-ssg'
 import App from './App.vue'
 import { routes } from './router'
-import "@/assets/main.css"
+import "@/assets/base.css"
+import "@/themes/paper.css"
 
 if (import.meta.env.DEV) {
   import('eruda').then((eruda) => {
